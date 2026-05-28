@@ -1,20 +1,19 @@
 import { useState } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import Home from './pages/Home'
+import ProductDetail from './pages/ProductDetail'
+import Cart from './pages/Cart'
 import './App.css'
 
-const sampleProducts = [
-  { id: 1, name: 'Premium Headphones', price: 199.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=1' },
-  { id: 2, name: 'Wireless Mouse', price: 49.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=2' },
-  { id: 3, name: 'USB-C Cable', price: 15.99, category: 'Cables', image: 'https://picsum.photos/400/400?random=3' },
-  { id: 4, name: 'Laptop Stand', price: 79.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=4' },
-  { id: 5, name: 'Monitor Light', price: 59.99, category: 'Lighting', image: 'https://picsum.photos/400/400?random=5' },
-  { id: 6, name: 'Mechanical Keyboard', price: 129.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=6' },
-]
-
 function App() {
-  const [cart, setCart] = useState([])
+  const [cartItems, setCartItems] = useState([])
 
   const addToCart = (product) => {
-    setCart([...cart, product])
+    setCartItems([...cartItems, product])
+  }
+
+  const removeFromCart = (index) => {
+    setCartItems(cartItems.filter((_, i) => i !== index))
   }
 
   return (
@@ -22,55 +21,33 @@ function App() {
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-purple-600">My Shop</h1>
+          <Link to="/" className="text-3xl font-bold text-purple-600 hover:text-purple-700">
+            My Shop
+          </Link>
           <div className="flex items-center gap-6">
             <nav className="hidden md:flex gap-6">
-              <a href="#" className="text-gray-600 hover:text-gray-900">Home</a>
-              <a href="#products" className="text-gray-600 hover:text-gray-900">Products</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">About</a>
+              <Link to="/" className="text-gray-600 hover:text-gray-900 transition">Home</Link>
+              <a href="#" className="text-gray-600 hover:text-gray-900 transition">About</a>
+              <a href="#" className="text-gray-600 hover:text-gray-900 transition">Contact</a>
             </nav>
-            <button className="relative px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-              Cart <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{cart.length}</span>
-            </button>
+            <Link to="/cart" className="relative px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold mb-4">Welcome to My Shop</h2>
-          <p className="text-xl text-purple-100">Discover premium products at great prices</p>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <h3 id="products" className="text-3xl font-bold mb-8 text-gray-900">Featured Products</h3>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {sampleProducts.map(product => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
-              <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
-              <div className="p-6">
-                <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded mb-2">
-                  {product.category}
-                </span>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">{product.name}</h4>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-purple-600">${product.price}</span>
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-semibold"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </main>
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<Home onAddToCart={addToCart} />} />
+        <Route path="/product/:id" element={<ProductDetail onAddToCart={addToCart} />} />
+        <Route path="/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={removeFromCart} />} />
+      </Routes>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 py-8">
