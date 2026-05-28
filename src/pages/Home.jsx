@@ -142,7 +142,7 @@ export default function Home({ onAddToCart }) {
 
           {!loading && products.length > 0 && (
             <>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 auto-rows-max">
                 {products.map(product => (
                   <Link
                     key={product.slug}
@@ -150,7 +150,7 @@ export default function Home({ onAddToCart }) {
                     className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group"
                   >
                     {/* Image */}
-                    <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                    <div className="relative w-full h-40 sm:h-48 bg-gray-200 overflow-hidden">
                       <img
                         src={product.image || `https://picsum.photos/300/300?random=${product.id}`}
                         alt={product.name}
@@ -162,25 +162,25 @@ export default function Home({ onAddToCart }) {
                     </div>
 
                     {/* Content */}
-                    <div className="p-3">
-                      <h4 className="text-sm font-medium text-gray-800 line-clamp-2 mb-2">
+                    <div className="p-2">
+                      <h4 className="text-xs font-medium text-gray-800 line-clamp-2 mb-1">
                         {product.name}
                       </h4>
 
-                      <p className="text-base font-bold text-orange-600 mb-2">
+                      <p className="text-sm font-bold text-orange-600 mb-1">
                         ฿{parseFloat(product.price).toFixed(2)}
                       </p>
 
-                      <p className="text-xs text-gray-600 mb-3">⭐ 4.9 | Sold 1.2k</p>
+                      <p className="text-xs text-gray-600 mb-2">⭐ 4.9</p>
 
                       <button
                         onClick={(e) => {
                           e.preventDefault()
                           onAddToCart(product)
                         }}
-                        className="w-full py-2 bg-orange-50 text-orange-600 border border-orange-200 rounded text-xs font-semibold hover:bg-orange-100 transition"
+                        className="w-full py-1 bg-orange-50 text-orange-600 border border-orange-200 rounded text-xs font-semibold hover:bg-orange-100 transition"
                       >
-                        Add to Cart
+                        Add
                       </button>
                     </div>
                   </Link>
