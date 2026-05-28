@@ -27,143 +27,175 @@ export default function Home({ onAddToCart }) {
 
   return (
     <>
-      {/* Flash Sale Banner */}
-      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-6">
-        <div className="w-full px-4 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <span className="text-4xl animate-bounce">🔥</span>
-              <div>
-                <h2 className="text-2xl font-bold">Flash Sale</h2>
-                <p className="text-sm text-orange-100">Up to 50% off</p>
+      {/* Promotional Banners */}
+      <section className="w-full bg-gray-100">
+        <div className="w-full px-4 lg:px-8 py-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Large Banner 1 */}
+            <div className="md:col-span-2 bg-gradient-to-r from-red-600 to-red-500 rounded-lg overflow-hidden h-48 flex items-center justify-center">
+              <div className="text-center text-white">
+                <p className="text-sm font-bold">PAYDAY</p>
+                <h2 className="text-3xl font-bold">DISCOUNT UP TO 30%</h2>
+                <p className="text-sm mt-2">On selected items</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm">Ends in</p>
-              <p className="text-2xl font-bold">00:23:45</p>
+
+            {/* Banner 2 */}
+            <div className="bg-gradient-to-b from-purple-500 to-purple-600 rounded-lg overflow-hidden h-48 flex items-center justify-center">
+              <div className="text-center text-white">
+                <p className="text-2xl font-bold">SUMMER</p>
+                <p className="text-sm">SALE</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <main className="flex-1 bg-white">
-        {/* Category Carousel */}
-        <div className="w-full border-b border-gray-200">
-          <div className="w-full px-4 lg:px-8 py-4">
-            <div className="flex gap-4 overflow-x-auto pb-2">
-              {[
-                { icon: '🏠', name: 'Home' },
-                { icon: '⚡', name: 'Flash Sale' },
-                { icon: '🎁', name: 'Deals' },
-                { icon: '💎', name: 'Premium' },
-                { icon: '📱', name: 'Electronics' },
-                { icon: '⌚', name: 'Accessories' },
-                { icon: '🎮', name: 'Gadgets' },
-              ].map((cat, i) => (
-                <button
-                  key={i}
-                  className="flex flex-col items-center gap-2 px-3 py-2 hover:text-orange-600 transition whitespace-nowrap flex-shrink-0"
-                >
-                  <span className="text-2xl">{cat.icon}</span>
-                  <span className="text-xs font-medium text-gray-700">{cat.name}</span>
-                </button>
-              ))}
-            </div>
+      {/* Service Icons */}
+      <section className="w-full bg-white border-b border-gray-200">
+        <div className="w-full px-4 lg:px-8 py-6">
+          <div className="grid grid-cols-4 md:grid-cols-7 gap-4">
+            {[
+              { icon: '🚚', label: 'Free Shipping' },
+              { icon: '✓', label: 'Fulfilled' },
+              { icon: '🏪', label: 'Shopee Newly' },
+              { icon: '🏬', label: 'Shopee Mall' },
+              { icon: '👗', label: 'Fashion' },
+              { icon: '💰', label: 'Cheap 99' },
+              { icon: '🛒', label: 'Supermarket' },
+            ].map((service, i) => (
+              <button key={i} className="flex flex-col items-center gap-2 p-3 hover:bg-gray-50 rounded-lg transition">
+                <span className="text-3xl">{service.icon}</span>
+                <span className="text-xs font-medium text-gray-700 text-center">{service.label}</span>
+              </button>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Products Section */}
-        <div className="w-full px-4 lg:px-8 py-12">
-          {loading && (
-            <div className="text-center py-20">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
-              <p className="text-gray-600 mt-4 text-lg">Loading products...</p>
-            </div>
-          )}
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8">
-              {error}
-            </div>
-          )}
-
-          {!loading && products.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-600 text-xl">No products available.</p>
-            </div>
-          )}
-
-          {!loading && products.length > 0 && (
-            <>
-              <h3 className="text-lg font-bold text-gray-900 mb-6">Recommended For You</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {products.map(product => (
-                  <Link
-                    key={product.slug}
-                    to={`/product/${product.slug}`}
-                    className="bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-shadow group"
-                  >
-                    {/* Image */}
-                    <div className="relative w-full aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
-                      <img
-                        src={product.image || `https://picsum.photos/400/400?random=${product.id}`}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {/* Discount Badge */}
-                      <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                        -20%
-                      </div>
-                    </div>
-
-                    {/* Info */}
-                    <div className="p-3">
-                      {/* Name */}
-                      <h4 className="text-sm font-medium text-gray-800 line-clamp-2 mb-2 group-hover:text-orange-600">
-                        {product.name}
-                      </h4>
-
-                      {/* Price */}
-                      <div className="mb-2">
-                        <p className="text-lg font-bold text-orange-600">
-                          ฿{parseFloat(product.price).toFixed(2)}
-                        </p>
-                        <p className="text-xs text-gray-500 line-through">
-                          ฿{(parseFloat(product.price) * 1.25).toFixed(2)}
-                        </p>
-                      </div>
-
-                      {/* Rating & Sold */}
-                      <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
-                        <span>⭐ 4.9</span>
-                        <span>•</span>
-                        <span>Sold 2.5k</span>
-                      </div>
-
-                      {/* Shop Info */}
-                      <div className="text-xs text-gray-600 mb-3 pb-3 border-t border-gray-100 pt-2">
-                        Official Store
-                      </div>
-
-                      {/* Button */}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault()
-                          onAddToCart(product)
-                        }}
-                        className="w-full py-2 bg-orange-50 text-orange-600 rounded hover:bg-orange-100 transition text-xs font-semibold"
-                      >
-                        Add to Cart
-                      </button>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
+      {/* Big Promo Banner */}
+      <section className="w-full bg-white px-4 lg:px-8 py-6">
+        <div className="w-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-8 text-white flex items-center justify-between">
+          <div>
+            <p className="text-sm font-bold">✨ New Customer Special</p>
+            <h2 className="text-2xl font-bold">GET UP TO 50% OFF</h2>
+            <p className="text-sm text-orange-100">On your first purchase</p>
+          </div>
+          <button className="bg-gray-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-800 transition">
+            SHOP NOW
+          </button>
         </div>
-      </main>
+      </section>
+
+      {/* Categories Section */}
+      <section className="w-full bg-white border-b border-gray-200 px-4 lg:px-8 py-8">
+        <h3 className="text-sm font-bold text-gray-700 mb-6 uppercase">Categories</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {[
+            { icon: '📱', name: 'Electronics' },
+            { icon: '⌚', name: 'Accessories' },
+            { icon: '🎮', name: 'Gadgets' },
+            { icon: '🎧', name: 'Audio' },
+            { icon: '💡', name: 'Lighting' },
+            { icon: '⌨️', name: 'Keyboards' },
+          ].map((cat, i) => (
+            <button key={cat.name} className="flex flex-col items-center gap-2 p-4 hover:bg-gray-50 rounded-lg transition">
+              <span className="text-4xl">{cat.icon}</span>
+              <span className="text-xs font-medium text-gray-800 text-center">{cat.name}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="w-full bg-gray-50 px-4 lg:px-8 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">Recommended For You</h2>
+
+        {loading && (
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+            <p className="text-gray-600 mt-4">Loading products...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8">
+            {error}
+          </div>
+        )}
+
+        {!loading && products.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-gray-600 text-xl">No products available.</p>
+          </div>
+        )}
+
+        {!loading && products.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {products.map(product => (
+              <Link
+                key={product.slug}
+                to={`/product/${product.slug}`}
+                className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow group"
+              >
+                {/* Image */}
+                <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
+                  <img
+                    src={product.image || `https://picsum.photos/300/300?random=${product.id}`}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
+                  {/* Discount */}
+                  <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                    -20%
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-3">
+                  {/* Name */}
+                  <h4 className="text-sm font-medium text-gray-800 line-clamp-2 mb-1 h-9">
+                    {product.name}
+                  </h4>
+
+                  {/* Price */}
+                  <div className="mb-2">
+                    <p className="text-base font-bold text-orange-600">
+                      ฿{parseFloat(product.price).toFixed(2)}
+                    </p>
+                  </div>
+
+                  {/* Rating & Sold */}
+                  <div className="text-xs text-gray-600 mb-3 space-y-1">
+                    <p>⭐ 4.9 (2.5k)</p>
+                    <p>Sold 1.2k</p>
+                  </div>
+
+                  {/* Button */}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      onAddToCart(product)
+                    }}
+                    className="w-full py-2 bg-orange-50 text-orange-600 border border-orange-200 rounded hover:bg-orange-100 transition text-xs font-semibold"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {/* Load More */}
+        {!loading && products.length > 0 && (
+          <div className="text-center mt-12">
+            <button className="px-8 py-3 border-2 border-orange-600 text-orange-600 rounded-lg hover:bg-orange-50 transition font-bold">
+              Load More Products
+            </button>
+          </div>
+        )}
+      </section>
     </>
   )
 }
