@@ -9,7 +9,7 @@ export default function Cart({ cartItems, onRemoveFromCart }) {
   if (cartItems.length === 0) {
     return (
       <main className="flex-1 bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="w-full px-4 lg:px-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
 
           <div className="bg-white rounded-lg p-12 text-center">
@@ -26,7 +26,7 @@ export default function Cart({ cartItems, onRemoveFromCart }) {
 
   return (
     <main className="flex-1 bg-gray-50 py-6">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+      <div className="w-full px-4 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Shopping Cart</h1>
 
         <div className="grid lg:grid-cols-3 gap-6">

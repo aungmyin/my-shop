@@ -38,7 +38,7 @@ export default function ProductDetail({ onAddToCart }) {
 
   if (loading) {
     return (
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-6 py-12">
+      <main className="flex-1 w-full px-4 lg:px-8 py-12">
         <div className="flex justify-center items-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
         </div>
@@ -48,7 +48,7 @@ export default function ProductDetail({ onAddToCart }) {
 
   if (error || !product) {
     return (
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-6 py-12">
+      <main className="flex-1 w-full px-4 lg:px-8 py-12">
         <Link to="/" className="inline-flex items-center text-orange-600 hover:text-orange-700 mb-8 transition font-medium">
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

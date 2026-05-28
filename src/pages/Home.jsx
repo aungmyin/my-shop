@@ -29,7 +29,7 @@ export default function Home({ onAddToCart }) {
     <>
       {/* Promotional Banner */}
       <section className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-600 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="w-full px-4 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-2">
@@ -46,7 +46,7 @@ export default function Home({ onAddToCart }) {
       {/* Main Content */}
       <main className="flex-1 bg-white">
         {/* Categories Section - No Borders! */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
+        <div className="w-full px-4 lg:px-8 py-12">
           <h3 className="text-sm font-bold text-gray-800 mb-6 tracking-wider">CATEGORIES</h3>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {[

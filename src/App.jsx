@@ -20,7 +20,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Top Header */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 flex justify-between items-center text-xs">
+        <div className="w-full px-4 lg:px-8 py-3 flex justify-between items-center text-xs">
           <div className="flex gap-6 text-gray-600">
             <a href="#" className="hover:text-orange-600 transition">Seller Centre</a>
             <a href="#" className="hover:text-orange-600 transition">Download</a>
@@ -34,7 +34,7 @@ function App() {
 
       {/* Main Header */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-4">
+        <div className="w-full px-4 lg:px-8 py-4">
           <div className="flex justify-between items-center gap-4 mb-4">
             <Link to="/" className="text-2xl font-bold text-orange-600 hover:text-orange-700 transition flex-shrink-0">
               my-shop
@@ -83,7 +83,7 @@ function App() {
 
         {/* Category Bar */}
         <div className="border-t border-gray-100 bg-white">
-          <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <div className="w-full px-4 lg:px-8">
             <div className="flex gap-6 overflow-x-auto py-4 text-sm font-medium text-gray-600">
               <button className="flex flex-col items-center gap-2 hover:text-orange-600 transition whitespace-nowrap">
                 <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">🔥</div>
@@ -111,7 +111,7 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 py-12 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="w-full px-4 lg:px-8">
           <div className="grid md:grid-cols-5 gap-8 mb-8">
             <div>
               <h4 className="text-white font-semibold mb-4">About my-shop</h4>
