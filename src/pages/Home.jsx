@@ -1,15 +1,30 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
-const sampleProducts = [
-  { id: 1, name: 'Premium Headphones', price: 199.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=1' },
-  { id: 2, name: 'Wireless Mouse', price: 49.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=2' },
-  { id: 3, name: 'USB-C Cable', price: 15.99, category: 'Cables', image: 'https://picsum.photos/400/400?random=3' },
-  { id: 4, name: 'Laptop Stand', price: 79.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=4' },
-  { id: 5, name: 'Monitor Light', price: 59.99, category: 'Lighting', image: 'https://picsum.photos/400/400?random=5' },
-  { id: 6, name: 'Mechanical Keyboard', price: 129.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=6' },
-]
+import { api } from '../services/api'
 
 export default function Home({ onAddToCart }) {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true)
+        const data = await api.getProducts()
+        setProducts(data.data || data)
+        setError(null)
+      } catch (err) {
+        console.error('Failed to load products:', err)
+        setError('Failed to load products. Please try again later.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
   return (
     <>
       {/* Hero Section */}
@@ -24,17 +39,39 @@ export default function Home({ onAddToCart }) {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
         <h3 className="text-3xl font-bold mb-8 text-gray-900">Featured Products</h3>
 
+        {loading && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">Loading products...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8">
+            {error}
+          </div>
+        )}
+
+        {!loading && products.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">No products found.</p>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {sampleProducts.map(product => (
+          {products.map(product => (
             <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
-              <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
+              <img
+                src={product.image || `https://picsum.photos/400/400?random=${product.id}`}
+                alt={product.name}
+                className="h-48 w-full object-cover"
+              />
               <div className="p-4">
                 <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded mb-2">
-                  {product.category}
+                  {product.category?.name || product.category || 'Other'}
                 </span>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">{product.name}</h4>
+                <h4 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h4>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-purple-600">${product.price}</span>
+                  <span className="text-2xl font-bold text-purple-600">${parseFloat(product.price).toFixed(2)}</span>
                   <div className="flex gap-2">
                     <Link
                       to={`/product/${product.id}`}
