@@ -74,7 +74,7 @@ export default function Home({ onAddToCart }) {
                   <span className="text-2xl font-bold text-purple-600">${parseFloat(product.price).toFixed(2)}</span>
                   <div className="flex gap-2">
                     <Link
-                      to={`/product/${product.id}`}
+                      to={`/product/${product.slug}`}
                       className="px-3 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition text-sm font-semibold"
                     >
                       View

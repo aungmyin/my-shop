@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { api } from '../services/api'
 
 export default function ProductDetail({ onAddToCart }) {
-  const { id } = useParams()
+  const { slug } = useParams()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -12,7 +12,7 @@ export default function ProductDetail({ onAddToCart }) {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const data = await api.getProduct(id)
+        const data = await api.getProduct(slug)
         setProduct(data.data || data)
         setError(null)
       } catch (err) {
@@ -24,7 +24,7 @@ export default function ProductDetail({ onAddToCart }) {
     }
 
     fetchProduct()
-  }, [id])
+  }, [slug])
 
   if (loading) {
     return (

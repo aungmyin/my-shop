@@ -45,7 +45,7 @@ function App() {
       {/* Routes */}
       <Routes>
         <Route path="/" element={<Home onAddToCart={addToCart} />} />
-        <Route path="/product/:id" element={<ProductDetail onAddToCart={addToCart} />} />
+        <Route path="/product/:slug" element={<ProductDetail onAddToCart={addToCart} />} />
         <Route path="/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={removeFromCart} />} />
       </Routes>
 
