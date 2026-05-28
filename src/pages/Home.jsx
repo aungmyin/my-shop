@@ -28,69 +28,98 @@ export default function Home({ onAddToCart }) {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold mb-4">Welcome to My Shop</h2>
-          <p className="text-xl text-purple-100">Discover premium products at great prices</p>
+      <section className="bg-gradient-to-b from-gray-900 to-gray-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+            Discover Premium Products
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Curated collection of quality items for your lifestyle
+          </p>
         </div>
       </section>
 
       {/* Products Section */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <h3 className="text-3xl font-bold mb-8 text-gray-900">Featured Products</h3>
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-6 py-16">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Featured Products</h2>
+          <div className="h-1 w-12 bg-gray-900"></div>
+        </div>
 
         {loading && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">Loading products...</p>
+          <div className="text-center py-20">
+            <div className="inline-block">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            </div>
+            <p className="text-gray-600 mt-4 text-lg">Loading products...</p>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8">
+          <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8 max-w-2xl">
             {error}
           </div>
         )}
 
         {!loading && products.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">No products found.</p>
+          <div className="text-center py-20">
+            <p className="text-gray-600 text-xl">No products available at the moment.</p>
           </div>
         )}
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map(product => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
-              <img
-                src={product.image || `https://picsum.photos/400/400?random=${product.id}`}
-                alt={product.name}
-                className="h-48 w-full object-cover"
-              />
-              <div className="p-4">
-                <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded mb-2">
-                  {product.category?.name || product.category || 'Other'}
-                </span>
-                <h4 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h4>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-purple-600">${parseFloat(product.price).toFixed(2)}</span>
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/product/${product.slug}`}
-                      className="px-3 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition text-sm font-semibold"
-                    >
-                      View
-                    </Link>
-                    <button
-                      onClick={() => onAddToCart(product)}
-                      className="px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-semibold"
-                    >
-                      Add
-                    </button>
+        {!loading && products.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map(product => (
+              <Link
+                key={product.id}
+                to={`/product/${product.slug}`}
+                className="group"
+              >
+                <div className="bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 h-full flex flex-col">
+                  {/* Image */}
+                  <div className="relative h-64 bg-gray-100 overflow-hidden">
+                    <img
+                      src={product.image || `https://picsum.photos/400/400?random=${product.id}`}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className="inline-block text-xs font-semibold text-gray-700 bg-white px-3 py-1 rounded-full">
+                        {product.category?.name || 'Product'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-700 transition">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4 flex-1 line-clamp-2">
+                      {product.description}
+                    </p>
+
+                    {/* Footer */}
+                    <div className="border-t border-gray-100 pt-4 flex justify-between items-center">
+                      <span className="text-2xl font-bold text-gray-900">
+                        ${parseFloat(product.price).toFixed(2)}
+                      </span>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          onAddToCart(product)
+                        }}
+                        className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+                      >
+                        Add
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </main>
     </>
   )
