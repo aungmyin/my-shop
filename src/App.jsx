@@ -2,12 +2,12 @@ import { useState } from 'react'
 import './App.css'
 
 const sampleProducts = [
-  { id: 1, name: 'Premium Headphones', price: 199.99, category: 'Electronics' },
-  { id: 2, name: 'Wireless Mouse', price: 49.99, category: 'Accessories' },
-  { id: 3, name: 'USB-C Cable', price: 15.99, category: 'Cables' },
-  { id: 4, name: 'Laptop Stand', price: 79.99, category: 'Accessories' },
-  { id: 5, name: 'Monitor Light', price: 59.99, category: 'Lighting' },
-  { id: 6, name: 'Mechanical Keyboard', price: 129.99, category: 'Electronics' },
+  { id: 1, name: 'Premium Headphones', price: 199.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=1' },
+  { id: 2, name: 'Wireless Mouse', price: 49.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=2' },
+  { id: 3, name: 'USB-C Cable', price: 15.99, category: 'Cables', image: 'https://picsum.photos/400/400?random=3' },
+  { id: 4, name: 'Laptop Stand', price: 79.99, category: 'Accessories', image: 'https://picsum.photos/400/400?random=4' },
+  { id: 5, name: 'Monitor Light', price: 59.99, category: 'Lighting', image: 'https://picsum.photos/400/400?random=5' },
+  { id: 6, name: 'Mechanical Keyboard', price: 129.99, category: 'Electronics', image: 'https://picsum.photos/400/400?random=6' },
 ]
 
 function App() {
@@ -51,9 +51,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sampleProducts.map(product => (
             <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
-              <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                <span className="text-gray-400 text-4xl">📦</span>
-              </div>
+              <img src={product.image} alt={product.name} className="h-48 w-full object-cover" />
               <div className="p-6">
                 <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded mb-2">
                   {product.category}
