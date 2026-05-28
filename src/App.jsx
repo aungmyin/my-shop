@@ -3,7 +3,6 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
-import './App.css'
 
 function App() {
   const [cartItems, setCartItems] = useState([])
